@@ -1,0 +1,41 @@
+https://docs.microsoft.com/en-us/iis/application-frameworks/install-and-configure-php-applications-on-iis/using-fastcgi-to-host-php-applications-on-iis
+https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-executesql-transact-sql?view=sql-server-2017
+https://www.microsoft.com/en-us/sql-server/developer-get-started/php/windows
+
+
+13.77.143.34:3389
+13.66.170.184
+user:SQLAcademy
+pass:Upwork2019!!
+
+sqlacademy.database.windows.net
+SQLAcademy
+Upwork2019!!
+
+
+so my idea is to have following tables:
+Questions (
+    question_id int,
+    question_text varchar,
+    question_sql_result varchar,
+    status bit
+);
+
+User_Answer (
+    answer_id int IDENTITY(1,1),
+    user_id int,
+    question_id int,
+    answer_sql_result varchar(8000),
+    date_insert datetime,
+    attempt int
+);
+
+Users (
+    user_id int IDENTITY(1,1),
+    uname varchar(100),
+    pw varchar(100),
+    first_name varchar(100),
+    last_name varchar(100)
+);
+
+And in the stored procedure we would compare "answer_sql_result" with "question_sql_result" usint EXCEPT and INTERSECT and sp_executesql
