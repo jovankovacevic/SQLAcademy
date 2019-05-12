@@ -11,6 +11,7 @@ $AttemptNum;
 $totalNumOfQuestions = getTotalNumOfQuestions();
 $userAllowed = authUser($_POST['uname'], $_POST['psw']);
 $userPriv = getUserPriv($_POST['uname']);
+$message = null;
 
 if($userAllowed){
     if($userPriv == "regular"){
@@ -32,23 +33,32 @@ if($userAllowed){
             $UserAnswer = $_POST['UserAnswer'];
             $AttemptNum = $_POST['AttemptNum'];
             $QuestionId = $_POST['QuestionId'];
+            $maxAttempts = $_POST['maxAttempts'];
             if(checkUserAnswer($uname, $QuestionId, $UserAnswer, $AttemptNum)){
                 if($QuestionId == $totalNumOfQuestions ){
-                    echo "Finished and submitted!";
+                    $finalScore = getFinalScore($uname);
+                    echo '<span style="color:blue;">Finished and submitted!</span><br/>';
+                    echo '<span style="color:blue;">Your final score is: '.$finalScore.'</span>';
                     exit();
                 }
                 $QuestionId = $QuestionId + 1;
                 $AttemptNum = 1;
+                $message = '<span style="color:green;">Correct answer! Take the next question.</span>';
             }
             else {
                 $AttemptNum = $AttemptNum + 1;
+                $message = '<span style="color:red;">Wrong answer!</span>';
                 if($AttemptNum > $maxAttempts) {
-                    echo "ERROR too many attempts!";
-                    exit();
+                    echo '<script language="javascript">';
+                    echo 'alert("Too many attempts! Take the next question.")';
+                    echo '</script>';
+                    echo "Too many attempts! Take the next question.";
+                    $QuestionId = $QuestionId + 1;
+                    $AttemptNum = 1;
                 }
             }  
 
-            getDataFromDB($QuestionId);
+            getDataFromDB($QuestionId, $message);
             
         }
     }
@@ -59,6 +69,23 @@ if($userAllowed){
 }
 else{
     echo "Access Denied!";
+}
+
+function getFinalScore($uname){
+    global $serverName, $connectionOptions;
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+    if( $conn === false ) {
+        die( print_r( sqlsrv_errors(), true));
+    }    
+    $stmt = "{ CALL SQLAcademy.getFinalScore (?,?)}";
+    $OutParam1=-1;
+    $params = array( 
+        array($uname, SQLSRV_PARAM_IN),
+        array(&$OutParam1, SQLSRV_PARAM_OUT)
+      );
+    $result = sqlsrv_query( $conn, $stmt, $params);
+    sqlsrv_close( $conn);
+    return $OutParam1;
 }
 
 function authUser($uname, $psw){
@@ -142,8 +169,8 @@ function getTotalNumOfQuestions() {
     return $OutParam1;
 }
 
-function getDataFromDB($QuestionId) {
-    global $serverName, $connectionOptions, $maxAttempts, $uname, $psw, $remember, $AttemptNum, $totalNumOfQuestions;
+function getDataFromDB($QuestionId, $message = null) {
+    global $serverName, $connectionOptions, $uname, $psw, $remember, $AttemptNum, $totalNumOfQuestions;
 
     //Establishes the connection
     $conn = sqlsrv_connect($serverName, $connectionOptions);
@@ -171,6 +198,7 @@ function getDataFromDB($QuestionId) {
         <textarea id = "UserAnswerId" name = "UserAnswer" rows = "10" cols = "80" required>Your answer goes here</textarea>
       <button type="submit">Submit answer</button>
       <label>
+        '.$message.'<br/>
         Attempt '.$AttemptNum.'/'.$maxAttempts.'
       </label>
       <input type="number" value="'. $AttemptNum .'" name="AttemptNum" class="hidden-input"> 
@@ -178,6 +206,7 @@ function getDataFromDB($QuestionId) {
       <input type="text" value="'. $uname .'" name="uname" class="hidden-input"> 
       <input type="text" value="'. $psw .'" name="psw" class="hidden-input"> 
       <input type="text" value="'. $remember .'" name="remember" class="hidden-input"> 
+      <input type="text" value="'. $maxAttempts .'" name="maxAttempts" class="hidden-input"> 
     </div>
   </form>
     ';
