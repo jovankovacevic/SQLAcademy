@@ -67,7 +67,7 @@ function authUser($uname, $psw){
     if( $conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }    
-    $stmt = "{ CALL authUser (?,?,?)}";
+    $stmt = "{ CALL SQLAcademy.authUser (?,?,?)}";
     $OutParam1=999;
     $params = array( 
         array($uname, SQLSRV_PARAM_IN),
@@ -90,7 +90,7 @@ function getUserPriv($uname){
     if( $conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }    
-    $stmt = "{ CALL getUserPriv (?,?)}";
+    $stmt = "{ CALL SQLAcademy.getUserPriv (?,?)}";
     $OutParam1=" ";
     $params = array( 
         array($uname, SQLSRV_PARAM_IN),
@@ -107,7 +107,7 @@ function checkUserAnswer($uname, $QuestionId, $UserAnswer, $AttemptNum){
     if( $conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }    
-    $stmt = "{ CALL checkUserAnswer (?,?,?,?,?)}";
+    $stmt = "{ CALL SQLAcademy.checkUserAnswer (?,?,?,?,?)}";
     $OutParam1=999;
     $params = array( 
         array($uname, SQLSRV_PARAM_IN),
@@ -132,7 +132,7 @@ function getTotalNumOfQuestions() {
     if( $conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }    
-    $stmt = "{ CALL getTotalNumOfQuestions (?)}";
+    $stmt = "{ CALL SQLAcademy.getTotalNumOfQuestions (?)}";
     $OutParam1=999;
     $params = array( 
                      array(&$OutParam1, SQLSRV_PARAM_OUT)
@@ -150,7 +150,7 @@ function getDataFromDB($QuestionId) {
     if( $conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }    
-    $stmt = "{ CALL getQuestion (?,?,?,?)}"; //calling stored procedure with single input parameter and 1 output parameter    
+    $stmt = "{ CALL SQLAcademy.getQuestion (?,?,?,?)}"; //calling stored procedure with single input parameter and 1 output parameter    
     $OutParam1="foo";
     $maxAttempts = 3;
     $params = array( 

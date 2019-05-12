@@ -14,7 +14,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if( $conn === false ) {
     die( print_r( sqlsrv_errors(), true));
 }   
-$stmt="UPDATE questions SET question_text='$question_text', question_sql_result='$question_sql_result', status='$status', max_attempts = '$max_attempts' WHERE question_id='$question_id'" ;
+$stmt="UPDATE SQLAcademy.questions SET question_text='$question_text', question_sql_result='$question_sql_result', status='$status', max_attempts = '$max_attempts' WHERE question_id='$question_id'" ;
 $result=sqlsrv_query( $conn, $stmt);
 sqlsrv_close( $conn);
 

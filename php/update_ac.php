@@ -15,7 +15,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if( $conn === false ) {
     die( print_r( sqlsrv_errors(), true));
 }   
-$stmt="UPDATE users SET uname='$uname', pw='$pw', first_name='$first_name', last_name = '$last_name', type='$type' WHERE user_id='$user_id'" ;
+$stmt="UPDATE SQLAcademy.users SET uname='$uname', pw='$pw', first_name='$first_name', last_name = '$last_name', type='$type' WHERE user_id='$user_id'" ;
 $result=sqlsrv_query( $conn, $stmt);
 sqlsrv_close( $conn);
 

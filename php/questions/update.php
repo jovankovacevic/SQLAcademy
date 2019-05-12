@@ -15,7 +15,7 @@ $id=$_GET['id'];
 
 
 // Retrieve data from database 
-$stmt="SELECT * FROM questions WHERE question_id = '$id'";
+$stmt="SELECT * FROM SQLAcademy.questions WHERE question_id = '$id'";
 $result=sqlsrv_query( $conn, $stmt);
 $rows=sqlsrv_fetch_array($result);
 ?>

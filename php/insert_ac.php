@@ -15,7 +15,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if( $conn === false ) {
     die( print_r( sqlsrv_errors(), true));
 }   
-$stmt="INSERT INTO users(uname, pw, first_name, last_name, type) VALUES('$uname', '$pw', '$first_name', '$last_name', '$type')" ;
+$stmt="INSERT INTO SQLAcademy.users(uname, pw, first_name, last_name, type) VALUES('$uname', '$pw', '$first_name', '$last_name', '$type')" ;
 $result=sqlsrv_query( $conn, $stmt);
 sqlsrv_close( $conn);
 

@@ -14,7 +14,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if( $conn === false ) {
     die( print_r( sqlsrv_errors(), true));
 }   
-$stmt="INSERT INTO questions(question_text, question_sql_result, status, max_attempts) 
+$stmt="INSERT INTO SQLAcademy.questions(question_text, question_sql_result, status, max_attempts) 
 VALUES('$question_text', '$question_sql_result', '$status', '$max_attempts')" ;
 $result=sqlsrv_query( $conn, $stmt);
 sqlsrv_close( $conn);

@@ -9,7 +9,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if( $conn === false ) {
     die( print_r( sqlsrv_errors(), true));
 }    
-$stmt = "SELECT * FROM users";
+$stmt = "SELECT * FROM SQLAcademy.users";
 $result = sqlsrv_query( $conn, $stmt);
 //sqlsrv_close( $conn);
 ?>
