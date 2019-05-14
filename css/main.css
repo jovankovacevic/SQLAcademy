@@ -138,7 +138,7 @@ textarea {
 
     width: 100%;
     text-align: center;
-    padding-top: 50%;
+    padding-top: 5vh;
 }
 .hidden-input{
     display: none !important;
