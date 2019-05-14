@@ -137,6 +137,8 @@ textarea {
     box-sizing: border-box;
 
     width: 100%;
+    text-align: center;
+    padding-top: 50%;
 }
 .hidden-input{
     display: none !important;

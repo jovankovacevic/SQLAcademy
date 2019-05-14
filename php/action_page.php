@@ -35,7 +35,7 @@ if($userAllowed){
             $QuestionId = $_POST['QuestionId'];
             $maxAttempts = $_POST['maxAttempts'];
             if(checkUserAnswer($uname, $QuestionId, $UserAnswer, $AttemptNum)){
-                if($QuestionId == $totalNumOfQuestions ){
+                if($QuestionId + 1 == $totalNumOfQuestions ){
                     $finalScore = getFinalScore($uname);
                     echo '<span style="color:blue;">Finished and submitted!</span><br/>';
                     echo '<span style="color:blue;">Your final score is: '.$finalScore.'</span>';
@@ -195,7 +195,7 @@ function getDataFromDB($QuestionId, $message = null) {
         Total number of questions: '. $totalNumOfQuestions .'<br/>
         Question '.$QuestionId.': '.$OutParam1.'
       </label>
-        <textarea id = "UserAnswerId" name = "UserAnswer" rows = "10" cols = "80" required>Your answer goes here</textarea>
+        <textarea id = "UserAnswerId" name = "UserAnswer" rows = "10" cols = "80" required placeholder="Your answer goes here"></textarea>
       <button type="submit">Submit answer</button>
       <label>
         '.$message.'<br/>
