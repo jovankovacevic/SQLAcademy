@@ -38,7 +38,7 @@ if($userAllowed){
                 if($QuestionId + 1 == $totalNumOfQuestions ){
                     $finalScore = getFinalScore($uname);
                     echo '<span style="color:blue;">Finished and submitted!</span><br/>';
-                    echo '<span style="color:blue;">Your final score is: '.$finalScore.'</span>';
+                    echo '<span style="color:blue;">Your final score is: '.$finalScore.' out of '.$totalNumOfQuestions.'</span>';
                     exit();
                 }
                 $QuestionId = $QuestionId + 1;
