@@ -35,7 +35,7 @@ if($userAllowed){
             $QuestionId = $_POST['QuestionId'];
             $maxAttempts = $_POST['maxAttempts'];
             if(checkUserAnswer($uname, $QuestionId, $UserAnswer, $AttemptNum)){
-                if($QuestionId + 1 == $totalNumOfQuestions ){
+                if($QuestionId == $totalNumOfQuestions ){
                     $finalScore = getFinalScore($uname);
                     echo '<span style="color:blue;">Finished and submitted!</span><br/>';
                     echo '<span style="color:blue;">Your final score is: '.$finalScore.' out of '.$totalNumOfQuestions.'</span>';
@@ -46,6 +46,12 @@ if($userAllowed){
                 $message = '<span style="color:green;">Correct answer! Take the next question.</span>';
             }
             else {
+                if($QuestionId == $totalNumOfQuestions ){
+                    $finalScore = getFinalScore($uname);
+                    echo '<span style="color:blue;">Finished and submitted!</span><br/>';
+                    echo '<span style="color:blue;">Your final score is: '.$finalScore.' out of '.$totalNumOfQuestions.'</span>';
+                    exit();
+                }
                 $AttemptNum = $AttemptNum + 1;
                 $message = '<span style="color:red;">Wrong answer!</span>';
                 if($AttemptNum > $maxAttempts) {
